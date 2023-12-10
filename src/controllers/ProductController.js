@@ -44,19 +44,23 @@ exports.ProductListByRemark=async(req,res) =>{
     return res.status(200).json({result:result});
 }
 
-
+//product list by similar keyword
 exports.ProductListBySimilar=async(req,res) =>{
+    let result = await ListBySimilarService(req);
+    return res.status(200).json({result:result});
+}
 
+//product details 
+exports.ProductDetails=async(req,res) =>{
+    let result = await DetailsService(req);
+    return res.status(200).json({result:result});
 }
 
 exports.ProductListByKeyword=async(req,res) =>{
-
+    let result = await ListByKeywordService(req);
+    return res.status(200).json({result:result});
 }
 
-
-exports.ProductDetails=async(req,res) =>{
-
-}
 
 exports.ProductReviewList=async(req,res) =>{
 
