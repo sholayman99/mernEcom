@@ -51,7 +51,7 @@ app.use("*", (req, res) => {
 
 async function connectToMongoDB() {
   try {
-    const uri = "mongodb+srv://mern444:mern444@cluster0.dfbtq6i.mongodb.net/";
+    const uri = "mongodb+srv://mern444:mern444@cluster0.dfbtq6i.mongodb.net/mernEcom";
     const OPTIONS = { user: "mern444", pass: "mern444" };
     await mongoose.connect(uri);
     console.log("Connected to MongoDB");
