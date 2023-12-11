@@ -226,20 +226,20 @@ const ListByKeywordService = async(req) =>{
 }
 
 //list by review service
-const ReviewListService = async(req,res) =>{
+const ReviewListService = async(req) =>{
    try{
-       let ProductID = ObjectId(req.params.ProductID) ;
-       let matchStage = { $match:{ productID:ProductID }} ;
-       let joinProfileStage = {
-           $lookup : { from:"profiles" , foreignField:"userID" , localField:"userID" , as:"profile" }
-       };
-       let unwindStage = { $unwind:"$profile" };
-       let projectionStage = { $project:{ "des":1 , "ratings":1 , "profile.cus_name":1 } }
+       let ProductID = new ObjectId(req.params.ProductID) ;
 
-       let data = await ProductModel.aggregate([
+       let matchStage = {$match:{productID:ProductID}} ;
+
+       let joinProfileStage = {$lookup:{from:"profiles",localField:"userID",foreignField:"userID",as:"profile"}};
+       let unwindStage = {$unwind:"$profile"};
+       let projectionStage = {$project: {'des': 1, 'rating': 1, 'profile.cus_name': 1}} ;
+
+       let data = await ReviewModel.aggregate([
            matchStage , joinProfileStage , unwindStage , projectionStage
        ]);
-
+      
        return {message:"success" , data:data};
    }
    catch (e) {
