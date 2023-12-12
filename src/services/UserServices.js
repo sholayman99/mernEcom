@@ -1,6 +1,9 @@
 const emailSend = require("../utility/EmailHelper");
-const UserModel = require('../models/UserModel')
+
+const UserModel = require('../models/UserModel');
+const ProfileModel = require('../models/ProfileModel');
 const {EncodeToken} = require("../utility/TokenHelper");
+
 //user otp service
 const UserOtpService = async (req) =>{
 
@@ -38,8 +41,8 @@ const UserVerifyOtpService = async(req) =>{
           //creating token
            let token = EncodeToken(email , user_id[0]['_id'].toString());
 
-          let data = await UserModel.updateOne({email:email} , {$set:{otp:"0"}});
-          console.log(data)
+            await UserModel.updateOne({email:email} , {$set:{otp:"0"}});
+
            return {message:"Valid Otp Code" , token:token};
       }else{
           return { message:"something went wrong"};
@@ -51,27 +54,40 @@ const UserVerifyOtpService = async(req) =>{
 }
 
 
-//user Create Profile service
-const CreateProfileService = async() =>{
+//user Create and Update Profile service
+const SaveProfileService = async(req) =>{
 
+    try{
+       let user_id = req.headers['user_id'] ;
+       let reqBody = req.body ;
+       reqBody.userID = user_id
+
+       let data = await ProfileModel.updateOne(
+           {userID:user_id},{$set:reqBody} , {upsert:true}
+       );
+       return {message:"Data Saved Successfully" , data:data}
+
+    }catch (e) {
+        return {message:"Unsuccessful attempt  " , data:e}.toString();
+    }
 
 }
 
-//user Update Profile service
-const UpdateProfileService = async() =>{
 
-
-}
 
 //user Read Profile service
-const ReadProfileService = async() =>{
+const ReadProfileService = async(req) =>{
 
+try{
+    let user_id = req.headers['user_id'];
+    let data = await ProfileModel.find({userID:user_id});
+    return {data:data};
+}catch (e) {
+    return {e}.toString()
+}
 
 }
 
 
-module.exports ={
-    UserOtpService,UserVerifyOtpService,CreateProfileService,UpdateProfileService,
-    ReadProfileService
-};
+module.exports ={ UserOtpService,UserVerifyOtpService,SaveProfileService, ReadProfileService };
 

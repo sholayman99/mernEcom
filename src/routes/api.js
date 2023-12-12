@@ -21,5 +21,8 @@ router.get("/ProductReviewList/:ProductID" , ProductController.ProductReviewList
 router.get("/UserOtp/:email" , UserController.UserOtp) ;
 router.get("/UserVerifyOtp/:email/:otp" , UserController.UserVerifyOtp) ;
 router.get("/UserLogout" , AuthVerifyMiddleware ,UserController.UserLogout) ;
+router.post("/CreateProfile" , AuthVerifyMiddleware ,UserController.CreateProfile) ;
+router.post("/UpdateProfile" , AuthVerifyMiddleware ,UserController.UpdateProfile) ;
+router.get("/ReadProfile" , AuthVerifyMiddleware ,UserController.ReadProfile) ;
 
 module.exports = router ;

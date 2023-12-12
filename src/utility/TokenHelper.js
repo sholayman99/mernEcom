@@ -12,7 +12,6 @@ exports.EncodeToken = (email , user_id) =>{
 exports.DecodeToken = (token) =>{
     try{
         let Key = "123-abc-xyz" ;
-        let token = token ;
         return jwt.verify(token,Key) ;
     }
     catch (e) {

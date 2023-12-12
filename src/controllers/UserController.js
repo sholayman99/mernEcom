@@ -1,6 +1,6 @@
 
 //user otp controller
-const {UserOtpService, UserVerifyOtpService} = require("../services/UserServices");
+const {UserOtpService, UserVerifyOtpService, SaveProfileService, ReadProfileService} = require("../services/UserServices");
 
 exports.UserOtp = async (req, res) =>{
     let result = await UserOtpService(req);
@@ -37,18 +37,21 @@ exports.UserLogout = async(req,res) =>{
 //user Create Profile controller
 exports.CreateProfile = async(req,res) =>{
 
-
+    let result = await SaveProfileService(req);
+    return res.status(200).json({status:"success" , result: result });
 }
 
 //user Update Profile controller
 exports.UpdateProfile = async(req,res) =>{
 
-
+    let result = await SaveProfileService(req);
+    return res.status(200).json({status:"success" , result: result });
 }
 
 //user Read Profile controller
 exports.ReadProfile = async(req,res) =>{
 
-
+    let result = await ReadProfileService(req);
+    return res.status(200).json({status:"success" , result: result });
 }
 
