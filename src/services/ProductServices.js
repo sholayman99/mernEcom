@@ -1,7 +1,6 @@
 const BrandModel = require("../models/BrandModel");
 const CategoryModel = require("../models/CategoryModel");
 const ProductModel = require("../models/ProductModel");
-const ProductDetailModel = require("../models/ProductDetailModel");
 const ProductSliderModel = require("../models/ProductSliderModel");
 const ReviewModel = require("../models/ReviewModel");
 const mongoose = require("mongoose");

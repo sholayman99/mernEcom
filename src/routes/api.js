@@ -3,6 +3,7 @@ const router = express.Router();
 const ProductController = require("../controllers/ProductController");
 const UserController = require("../controllers/UserController");
 const WishListController = require("../controllers/WishListController")
+const CartListController = require("../controllers/CartListController")
 const AuthVerifyMiddleware = require("../middlewares/AuthVerifyMiddleware")
 
 //Api end-point for Product
@@ -30,6 +31,14 @@ router.get("/ReadProfile" , AuthVerifyMiddleware ,UserController.ReadProfile) ;
 //Api end-point for Wish List
 router.post("/SaveWishList" , AuthVerifyMiddleware ,WishListController.SaveWishList) ;
 router.post("/RemoveWishList" , AuthVerifyMiddleware ,WishListController.RemoveWishList) ;
+router.get("/ReadWishList" , AuthVerifyMiddleware ,WishListController.ReadWishList) ;
+
+//Cart
+router.post("/SaveCartList" , AuthVerifyMiddleware ,CartListController.SaveCartList) ;
+router.post("/UpdateCartList/:CartID" , AuthVerifyMiddleware ,CartListController.UpdateCartList) ;
+router.post("/RemoveCartList" , AuthVerifyMiddleware ,CartListController.RemoveCartList) ;
+router.get("/ReadCartList" , AuthVerifyMiddleware , CartListController.ReadCartList) ;
+
 
 
 module.exports = router ;

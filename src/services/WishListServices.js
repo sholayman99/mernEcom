@@ -7,7 +7,6 @@ const SaveWishListService =async(req) =>{
   try{
       let user_id = req.headers.user_id
       let reqBody= req.body;
-      console.log(reqBody)
       reqBody.userID = user_id ;
       await WishModel.updateOne(reqBody,{$set:reqBody} , {upsert:true});
       return { status:"success" , message:"Wish List Save Success" };
@@ -30,6 +29,18 @@ const RemoveWishListService =async(req) =>{
     }
 }
 
+//find wish list service
+const ReadWishListService =async(req) =>{
+    try{
+        let user_id = req.headers.user_id
+        let data = await WishModel.find({userID:user_id});
+        return { status:"success" , data:data };
+    }catch (e) {
+        return { status:"failed" , error:e }.toString();
+    }
+}
 
 
-module.exports = { SaveWishListService, RemoveWishListService }
+
+
+module.exports = { SaveWishListService, RemoveWishListService,ReadWishListService }
