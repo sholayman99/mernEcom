@@ -15,7 +15,7 @@ exports.UserVerifyOtp = async(req,res) =>{
 
     if(result['message'] === "Valid Otp Code"){
         let cookieOption ={
-            expires: new Date(Date.now() + 60 * 60* 1000), httpOnly:false }
+            expires: new Date(Date.now() + 24 * 60 * 60* 1000), httpOnly:false }
         res.cookie("token" , result['token'] , cookieOption);
         return res.status(200).json({status:"success" , result: result });
 
@@ -28,7 +28,7 @@ exports.UserVerifyOtp = async(req,res) =>{
 //user logout controller
 exports.UserLogout = async(req,res) =>{
     let cookieOption ={
-        expires: new Date(Date.now() - 60 * 60* 1000), httpOnly:false }
+        expires: new Date(Date.now() - 24 * 60 * 60* 1000), httpOnly:false }
     res.cookie("token" , "" , cookieOption);
     return res.status(200).json({status:"success" });
 
