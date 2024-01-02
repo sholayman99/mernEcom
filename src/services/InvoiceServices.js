@@ -2,6 +2,7 @@ const CartModel = require("../models/CartModel") ;
 const ProfileModel =require("../models/ProfileModel") ;
 const InvoiceModel = require("../models/InvoiceModel");
 const InvoiceProductModel = require("../models/InvoiceProductModel");
+const PaymentSettingModel = require("../models/PaymentSettingModel");
 const mongoose = require("mongoose");
 const ObjectId = mongoose.Types.ObjectId ;
 
@@ -84,6 +85,23 @@ const CreateInvoiceService = async (req) =>{
 //=============== Step 6: Remove Carts ============================
 
         await CartModel.deleteMany({userID:user_id});
+
+//=============== Step 6: Prepare for SSL ============================
+
+        let PaymentSettings = await PaymentSettingModel.find({});
+
+        let form = new FormData();
+
+        //payemnt settings
+        form.append("store_id" , PaymentSettings[0]['store_id'])
+        form.append("store_passwd" , PaymentSettings[0]['store_passwd'])
+        form.append("total_amount" , payable.toString())
+        form.append("currency" , PaymentSettings[0]['currency'])
+        form.append("tran_id" , tran_id)
+        form.append("success_url" , PaymentSettings[0]['success_url'])
+        form.append("fail_url" , PaymentSettings[0]['fail_url'])
+        form.append("cancel_url" , PaymentSettings[0]['cancel_url'])
+        form.append("ipn_url" , PaymentSettings[0]['ipn_url'])
 
 
         return {status:"success" , data: invoice_id}
