@@ -4,6 +4,7 @@ const InvoiceModel = require("../models/InvoiceModel");
 const InvoiceProductModel = require("../models/InvoiceProductModel");
 const PaymentSettingModel = require("../models/PaymentSettingModel");
 const mongoose = require("mongoose");
+const axios = require("axios");
 const ObjectId = mongoose.Types.ObjectId ;
 
 const CreateInvoiceService = async (req) =>{
@@ -92,7 +93,7 @@ const CreateInvoiceService = async (req) =>{
 
         let form = new FormData();
 
-        //payemnt settings
+        //payment settings
         form.append("store_id" , PaymentSettings[0]['store_id'])
         form.append("store_passwd" , PaymentSettings[0]['store_passwd'])
         form.append("total_amount" , payable.toString())
@@ -103,8 +104,40 @@ const CreateInvoiceService = async (req) =>{
         form.append("cancel_url" , PaymentSettings[0]['cancel_url'])
         form.append("ipn_url" , PaymentSettings[0]['ipn_url'])
 
+        //customer details
+        form.append("cus_name",profile[0]['cus_name'] )
+        form.append("cus_email",cus_email )
+        form.append("cus_add1",profile[0]['cus_add'] )
+        form.append("cus_add2",profile[0]['cus_add'] )
+        form.append("cus_city",profile[0]['cus_city'] )
+        form.append("cus_state",profile[0]['cus_state'] )
+        form.append("cus_postcode",profile[0]['cus_postcode'] )
+        form.append("cus_country",profile[0]['cus_country'] )
+        form.append("cus_phone",profile[0]['cus_phone'] )
+        form.append("cus_fax",profile[0]['cus_phone'] )
 
-        return {status:"success" , data: invoice_id}
+        //Shipment Information
+        form.append("shipping_method","yes" )
+        form.append("ship_name",profile[0]['ship_name'] )
+        form.append("ship_add1",profile[0]['ship_add'] )
+        form.append("ship_add2",profile[0]['ship_add'] )
+        form.append("ship_area",profile[0]['ship_area'] )
+        form.append("ship_city",profile[0]['ship_city'] )
+        form.append("ship_state",profile[0]['ship_state'] )
+        form.append("ship_postcode",profile[0]['ship_postcode'] )
+        form.append("ship_country",profile[0]['ship_country'] )
+
+        //Product Information
+        form.append("product_name", "According to Invoice" )
+        form.append("product_category", "According to Invoice" )
+        form.append("product_profile", "According to Invoice" )
+        // form.append("product_type", "According to Invoice" )
+        form.append("product_amount", "According to Invoice" )
+
+       let SSL = await axios.post(PaymentSettings[0]['init_url'],form)
+
+
+        return {status:"success" , data: SSL.data }
 
     }catch (e) {
         return {status:"fail" , data:e}.toString()
