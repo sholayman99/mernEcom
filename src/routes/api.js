@@ -43,5 +43,9 @@ router.get("/ReadCartList" , AuthVerifyMiddleware , CartListController.ReadCartL
 
 //Invoice
 router.get("/CreateInvoice",AuthVerifyMiddleware , InvoiceController.CreateInvoice );
+router.post("/PaymentSuccess/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentSuccess );
+router.post("/PaymentFail/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentFail );
+router.post("/PaymentCancel/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentCancel );
+router.post("/PaymentIPN/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentIPN );
 
 module.exports = router ;
