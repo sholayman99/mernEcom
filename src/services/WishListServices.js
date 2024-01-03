@@ -1,5 +1,7 @@
 
-const WishModel = require("../models/WishModel")
+const WishModel = require("../models/WishModel");
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId ;
 
 
 //save wish list service
@@ -29,7 +31,7 @@ const RemoveWishListService =async(req) =>{
     }
 }
 
-//find wish list service
+//find wish service
 const ReadWishListService =async(req) =>{
     try{
         let user_id = req.headers.user_id
@@ -40,7 +42,35 @@ const ReadWishListService =async(req) =>{
     }
 }
 
+//find wish list service
+const WishListService =async(req) =>{
+    try{
+        let user_id = new ObjectId(req.headers.user_id)
+        let matchStage = {$match:{userID:user_id}};
+        let joinWithProduct = { $lookup:{
+            from:"products", localField:"productID" , foreignField:"_id" , as:"product"
+            } };
+        let unwindProductStage = {$unwind:"$product"}
+        let joinWithBrandStage = {
+            $lookup:{ from:"brands" , foreignField:"_id" , localField:"product.brandID" , as:"brand"}
+        };
+        let joinWithCategoryStage = {
+            $lookup:{ from:"categories" , foreignField:"_id" , localField:"product.categoryID" , as:"category"}
+        };
+        let unwindBrandStage = {$unwind:"$brand"};
+        let unwindCategoryStage = {$unwind:"$category"}
+        let data = await WishModel.aggregate([
+            matchStage, joinWithProduct,unwindProductStage,joinWithBrandStage,joinWithCategoryStage,
+            unwindBrandStage,unwindCategoryStage
+        ]);
+        return { status:"success" , data:data };
+    }catch (e) {
+        return { status:"failed" , error:e }.toString();
+    }
+}
 
 
 
-module.exports = { SaveWishListService, RemoveWishListService,ReadWishListService }
+
+
+module.exports = { SaveWishListService, RemoveWishListService,ReadWishListService,WishListService }

@@ -5,7 +5,7 @@ const UserController = require("../controllers/UserController");
 const WishListController = require("../controllers/WishListController");
 const CartListController = require("../controllers/CartListController");
 const InvoiceController  = require("../controllers/InvoiceController");
-
+const FeatureController = require("../controllers/FeatureController")
 const AuthVerifyMiddleware = require("../middlewares/AuthVerifyMiddleware")
 
 //Api end-point for Product
@@ -19,7 +19,11 @@ router.get("/ProductListByRemark/:Remark" , ProductController.ProductListByRemar
 router.get("/ProductListBySimilar/:CategoryID" , ProductController.ProductListBySimilar);
 router.get("/ProductListByKeyword/:Keyword" , ProductController.ProductListByKeyword);
 router.get("/ProductDetails/:ProductID" , ProductController.ProductDetails);
+
+//Api end-point for Review
+
 router.get("/ProductReviewList/:ProductID" , ProductController.ProductReviewList);
+router.post("/CreateReviewList" ,AuthVerifyMiddleware, ProductController.CreateReviewList);
 
 //Api end-point for User
 router.get("/UserOtp/:email" , UserController.UserOtp) ;
@@ -34,20 +38,24 @@ router.get("/ReadProfile" , AuthVerifyMiddleware ,UserController.ReadProfile) ;
 router.post("/SaveWishList" , AuthVerifyMiddleware ,WishListController.SaveWishList) ;
 router.post("/RemoveWishList" , AuthVerifyMiddleware ,WishListController.RemoveWishList) ;
 router.get("/ReadWishList" , AuthVerifyMiddleware ,WishListController.ReadWishList) ;
+router.get("/WishList" , AuthVerifyMiddleware ,WishListController.WishList) ;
 
-//Cart
+//Api end-point for Cart
 router.post("/SaveCartList" , AuthVerifyMiddleware ,CartListController.SaveCartList) ;
 router.post("/UpdateCartList/:CartID" , AuthVerifyMiddleware ,CartListController.UpdateCartList) ;
 router.post("/RemoveCartList" , AuthVerifyMiddleware ,CartListController.RemoveCartList) ;
 router.get("/ReadCartList" , AuthVerifyMiddleware , CartListController.ReadCartList) ;
 
-//Invoice
+//Api end-point for Invoice
 router.get("/CreateInvoice",AuthVerifyMiddleware , InvoiceController.CreateInvoice );
-router.post("/PaymentSuccess/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentSuccess );
-router.post("/PaymentFail/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentFail );
-router.post("/PaymentCancel/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentCancel );
-router.post("/PaymentIPN/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentIPN );
+router.post("/PaymentSuccess/:trxID", InvoiceController.PaymentSuccess );
+router.post("/PaymentFail/:trxID", InvoiceController.PaymentFail );
+router.post("/PaymentCancel/:trxID", InvoiceController.PaymentCancel );
+router.post("/PaymentIPN/:trxID", InvoiceController.PaymentIPN );
 router.get("/InvoiceList",AuthVerifyMiddleware , InvoiceController.InvoiceList );
 router.get("/InvoiceProductList/:invoiceID",AuthVerifyMiddleware , InvoiceController.InvoiceProductList );
+
+//Api end-point for Feature
+router.get("/FeatureList",AuthVerifyMiddleware , FeatureController.FeatureList );
 
 module.exports = router ;

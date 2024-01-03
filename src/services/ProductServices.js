@@ -248,9 +248,27 @@ const ReviewListService = async(req) =>{
    }
 }
 
+
+//create review list service
+const CreateReviewListService = async(req) =>{
+    try{
+
+        let user_id = req.headers.user_id ;
+        let reqBody = req.body ;
+        reqBody.userID = user_id ;
+        console.log(reqBody)
+        let data = await ReviewModel.create(reqBody);
+        return {message:"success" , data:data};
+    }
+    catch (e) {
+        return {message:"fail" , data:e.message}.toString();
+    }
+}
+
+
 module.exports = {
     BrandListService , CategoryListService ,SliderListService , DetailsService ,  ListByKeywordService,
     ListByBrandService , ListByCategoryService , ListBySimilarService , ListByRemarkService ,
-    ReviewListService
+    ReviewListService,CreateReviewListService
 }
 
