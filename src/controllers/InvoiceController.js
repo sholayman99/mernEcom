@@ -1,4 +1,5 @@
-const {CreateInvoiceService,PaymentSuccessService,PaymentFailService,PaymentCancelService,PaymentIPNService} = require("../services/InvoiceServices")
+const {CreateInvoiceService,PaymentSuccessService,PaymentFailService,PaymentCancelService,
+    PaymentIPNService,InvoiceListService,InvoiceProductListService} = require("../services/InvoiceServices")
 
 
 //invoice creation controller
@@ -28,5 +29,17 @@ exports.PaymentCancel = async(req,res) =>{
 //payment ipn controller
 exports.PaymentIPN = async(req,res) =>{
     let result = await PaymentIPNService(req)  ;
+    return res.status(200).json(result)
+}
+
+//invoice list controller
+exports.InvoiceList = async(req,res) =>{
+    let result = await InvoiceListService(req)  ;
+    return res.status(200).json(result)
+}
+
+//invoice product list controller
+exports.InvoiceProductList = async(req,res) =>{
+    let result = await InvoiceProductListService(req)  ;
     return res.status(200).json(result)
 }

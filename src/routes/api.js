@@ -47,5 +47,7 @@ router.post("/PaymentSuccess/:trxID",AuthVerifyMiddleware , InvoiceController.Pa
 router.post("/PaymentFail/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentFail );
 router.post("/PaymentCancel/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentCancel );
 router.post("/PaymentIPN/:trxID",AuthVerifyMiddleware , InvoiceController.PaymentIPN );
+router.get("/InvoiceList",AuthVerifyMiddleware , InvoiceController.InvoiceList );
+router.get("/InvoiceProductList/:invoiceID",AuthVerifyMiddleware , InvoiceController.InvoiceProductList );
 
 module.exports = router ;

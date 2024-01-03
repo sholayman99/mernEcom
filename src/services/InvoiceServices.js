@@ -182,6 +182,7 @@ const PaymentCancelService =async(req) =>{
     }
 }
 
+//payment ipn service
 const PaymentIPNService =async(req) =>{
     try{
         let trxID = req.params.trxID ;
@@ -195,6 +196,45 @@ const PaymentIPNService =async(req) =>{
 }
 
 
+//invoice list service
+
+const InvoiceListService =async(req) =>{
+    try{
+        let user_id = new ObjectId(req.headers.user_id) ;
+        let invoice = await  InvoiceModel.find({userID:user_id});
+        return {status:"success" , data:invoice}
+    }
+    catch (e) {
+        return {status:"fail" , data:e}.toString()
+    }
+}
+
+//invoice product list service
+
+const InvoiceProductListService =async(req) =>{
+    try{
+        let user_id = new ObjectId(req.headers.user_id) ;
+        let invoiceID = new ObjectId(req.params.invoiceID);
+        let matchStage = {$match:{userID:user_id,invoiceID:invoiceID}};
+        let joinProductStage = {$lookup:{
+                from:"products" , localField: "productID" , foreignField:"_id" , as:"product"
+            }};
+        let unwindProductStage = {$unwind:"$product"};
+
+        let products = await InvoiceProductModel.aggregate([
+            matchStage,joinProductStage,unwindProductStage
+        ]);
+        return {status:"success" , data:products}
+    }
+    catch (e) {
+        return {status:"fail" , data:e}.toString()
+    }
+}
 
 
-module.exports ={CreateInvoiceService,PaymentSuccessService,PaymentFailService,PaymentCancelService,PaymentIPNService}
+
+
+
+
+module.exports ={CreateInvoiceService,PaymentSuccessService,PaymentFailService,
+    PaymentCancelService,PaymentIPNService,InvoiceListService,InvoiceProductListService}
