@@ -16,10 +16,10 @@ const UserOtpService = async (req) =>{
        let data = await UserModel.updateOne(
            {email:email} , {$set:{otp:code}},{upsert:true}
        );
-        return {message:"6 Digit Otp has been send" , data:data};
+        return {status:"success", message:"6 Digit Otp has been send" , data:data};
 
     }catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 
 }
@@ -43,12 +43,12 @@ const UserVerifyOtpService = async(req) =>{
 
             await UserModel.updateOne({email:email} , {$set:{otp:"0"}});
 
-           return {message:"Valid Otp Code" , token:token};
+           return {status:"success" , message:"Valid Otp Code" , data:token};
       }else{
-          return { message:"something went wrong"};
+          return {status:"fail" , message:"something went wrong"};
       }
   }catch (e) {
-      return {message:"failed" , data:e}.toString();
+      return {status:"fail" , data:e}.toString();
   }
     
 }
@@ -65,10 +65,10 @@ const SaveProfileService = async(req) =>{
        let data = await ProfileModel.updateOne(
            {userID:user_id},{$set:reqBody} , {upsert:true}
        );
-       return {message:"Data Saved Successfully" , data:data}
+       return {status:"success" , message:"Data Saved Successfully" , data:data}
 
     }catch (e) {
-        return {message:"Unsuccessful attempt  " , data:e}.toString();
+        return { status:"fail" , message:"Unsuccessful attempt" , data:e}.toString();
     }
 
 }
@@ -81,9 +81,9 @@ const ReadProfileService = async(req) =>{
 try{
     let user_id = req.headers['user_id'];
     let data = await ProfileModel.find({userID:user_id});
-    return {data:data};
+    return {status:"success", data:data};
 }catch (e) {
-    return {e}.toString()
+    return {status:"fail" ,data:e}.toString()
 }
 
 }

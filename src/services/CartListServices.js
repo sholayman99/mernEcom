@@ -13,7 +13,7 @@ const SaveCartListService =async(req) =>{
         await CartModel.create(reqBody);
         return { status:"success" , message:"Cart List Save Success" };
     }catch (e) {
-        return { status:"failed" , message:"Something went wrong" };
+        return { status:"fail" , message:"Something went wrong" , data:e }.toString();
     }
 }
 
@@ -27,7 +27,7 @@ const UpdateCartListService =async(req) =>{
         await CartModel.updateOne({_id:CartID, userID:user_id},{$set:reqBody});
         return { status:"success" , message:"Cart List Update Success" };
     }catch (e) {
-        return { status:"failed" , message:"Something went wrong" };
+        return { status:"fail" , message:"Something went wrong", data:e }.toString();
     }
 }
 
@@ -41,7 +41,7 @@ const RemoveCartListService =async(req) =>{
         await CartModel.deleteOne(reqBody);
         return { status:"success" , message:"Delete Wish List Save Success" };
     }catch (e) {
-        return { status:"failed" , message:"Something went wrong" };
+        return { status:"fail" , message:"Something went wrong" ,data:e }.toString();
     }
 }
 
@@ -73,7 +73,7 @@ const ReadCartListService =async(req) =>{
 
         return { status:"success" , data:data };
     }catch (e) {
-        return { status:"failed" , error:e }.toString();
+        return { status:"fail" , error:e }.toString();
     }
 }
 

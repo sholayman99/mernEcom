@@ -13,7 +13,7 @@ const SaveWishListService =async(req) =>{
       await WishModel.updateOne(reqBody,{$set:reqBody} , {upsert:true});
       return { status:"success" , message:"Wish List Save Success" };
   }catch (e) {
-      return { status:"failed" , message:"Something went wrong" };
+      return { status:"fail" , message:"Something went wrong" };
   }
 }
 
@@ -27,7 +27,7 @@ const RemoveWishListService =async(req) =>{
         await WishModel.deleteOne(reqBody);
         return { status:"success" , message:"Delete Wish List Save Success" };
     }catch (e) {
-        return { status:"failed" , message:"Something went wrong" };
+        return { status:"fail" , message:"Something went wrong" };
     }
 }
 
@@ -38,7 +38,7 @@ const ReadWishListService =async(req) =>{
         let data = await WishModel.find({userID:user_id});
         return { status:"success" , data:data };
     }catch (e) {
-        return { status:"failed" , error:e }.toString();
+        return { status:"fail" , error:e }.toString();
     }
 }
 
@@ -65,7 +65,7 @@ const WishListService =async(req) =>{
         ]);
         return { status:"success" , data:data };
     }catch (e) {
-        return { status:"failed" , error:e }.toString();
+        return { status:"fail" , error:e }.toString();
     }
 }
 

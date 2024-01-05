@@ -10,10 +10,10 @@ const ObjectId = mongoose.Types.ObjectId ;
 const BrandListService = async() =>{
   try {
       let data = await BrandModel.find({});
-      return  {message:"success" , data:data};
+      return  {status:"success" , data:data};
   }
   catch (e) {
-      return  {message:"fail" , data:e}.toString();
+      return  {status:"fail" , data:e}.toString();
   }
 }
 
@@ -21,10 +21,10 @@ const BrandListService = async() =>{
 const CategoryListService = async() =>{
     try {
         let data = await CategoryModel.find({});
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
@@ -32,10 +32,10 @@ const CategoryListService = async() =>{
 const SliderListService = async() =>{
     try {
         let data = await ProductSliderModel.find({});
-       return {message:"success" , data:data};
+       return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
@@ -61,10 +61,10 @@ const ListByBrandService = async(req) =>{
             matchStage,joinWithBrandStage,joinWithCategoryStage , unwindBrandStage,
             unwindCategoryStage , projectionStage
         ])
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 
 }
@@ -90,10 +90,10 @@ const ListByCategoryService = async(req) =>{
             matchStage,joinWithBrandStage,joinWithCategoryStage , unwindBrandStage,
             unwindCategoryStage , projectionStage
         ])
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
@@ -118,10 +118,10 @@ const ListByRemarkService = async(req) =>{
             matchStage,joinWithBrandStage,joinWithCategoryStage , unwindBrandStage,
             unwindCategoryStage , projectionStage
         ])
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
@@ -147,10 +147,10 @@ const ListBySimilarService = async(req) =>{
             matchStage , limitStage , joinWithBrandStage , joinWithCategoryStage , unwindBrandStage ,
             unwindCategoryStage , projectionStage
         ]);
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
@@ -181,11 +181,11 @@ const DetailsService = async(req) =>{
         unwindBrandStage , unwindCategoryStage , unwindDetailsStage , projectionStage
     ]);
 
-    return {message:"success" , data:data};
+    return {status:"success" , data:data};
 
    } 
    catch (e) {
-    return {message:"fail" , data:e}.toString();
+    return {status:"fail" , data:e}.toString();
    }
 }
 
@@ -216,10 +216,10 @@ const ListByKeywordService = async(req) =>{
             unwindBrandStage , unwindCategoryStage , projectionStage
         ]);
 
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 
 }
@@ -241,10 +241,10 @@ const ReviewListService = async(req) =>{
            matchStage,joinProfileStage,unwindStage,projectionStage
        ]);
       
-       return {message:"success" , data:data};
+       return {status:"success" , data:data};
    }
    catch (e) {
-       return {message:"fail" , data:e}.toString();
+       return {status:"fail" , data:e}.toString();
    }
 }
 
@@ -258,10 +258,10 @@ const CreateReviewListService = async(req) =>{
         reqBody.userID = user_id ;
         console.log(reqBody)
         let data = await ReviewModel.create(reqBody);
-        return {message:"success" , data:data};
+        return {status:"success" , data:data};
     }
     catch (e) {
-        return {message:"fail" , data:e.message}.toString();
+        return {status:"fail" , data:e}.toString();
     }
 }
 
