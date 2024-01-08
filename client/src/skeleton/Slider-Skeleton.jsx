@@ -3,6 +3,8 @@ import React from "react";
 import Skeleton from "react-loading-skeleton";
 import Lottie from "lottie-react";
 import imagePlaceHolder from "../assets/images/image.json"
+
+
 const SliderSkeleton = () => {
   return (
     <div className="container-fluid hero-bg">
