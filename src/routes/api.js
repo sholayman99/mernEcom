@@ -56,6 +56,6 @@ router.get("/InvoiceList",AuthVerifyMiddleware , InvoiceController.InvoiceList )
 router.get("/InvoiceProductList/:invoiceID",AuthVerifyMiddleware , InvoiceController.InvoiceProductList );
 
 //Api end-point for Feature
-router.get("/FeatureList",AuthVerifyMiddleware , FeatureController.FeatureList );
+router.get("/FeatureList" , FeatureController.FeatureList );
 
 module.exports = router ;
