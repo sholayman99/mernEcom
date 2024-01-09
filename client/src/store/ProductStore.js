@@ -6,32 +6,36 @@ const ProductStore = create((set)=>({
     BrandList:null ,
     BrandListRequest : async()=>{
         let res = await axios.get("/api/v1/ProductBrandList");
-        if(res.data['status']==="success"){
-            set({BrandList:res.data['data']})
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({BrandList:data['data']})
         }
     },
 
     CategoryList:null ,
     CategoryListRequest : async()=>{
         let res = await axios.get("/api/v1/ProductCategoryList");
-        if(res.data['status']==="success"){
-            set({CategoryList:res.data['data']});
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({CategoryList:data['data']})
         }
     },
 
     SliderList:null ,
     SliderListRequest : async()=>{
         let res = await axios.get("/api/v1/ProductSliderList");
-        if(res.data['status']==="success"){
-            set({SliderList:res.data['data']});
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({SliderList:data['data']})
         }
     },
 
     ListByRemark:null ,
     ListByRemarkRequest : async(Remark)=>{
         let res = await axios.get(`/api/v1/ProductListByBrand/${Remark}`);
-        if(res.data['status']==="success"){
-            set({ListByRemark:res.data['data']});
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({ListByRemark:data['data']})
         }
     },
 
