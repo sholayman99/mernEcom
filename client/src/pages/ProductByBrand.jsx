@@ -12,7 +12,7 @@ const ProductByBrand = () => {
         (async()=>{
             await ListByBrandRequest(id);
         })()
-    }, []);
+    }, [id]);
 
     return (
         <Layout>

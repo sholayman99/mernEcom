@@ -64,6 +64,11 @@ const ProductStore = create((set)=>({
             set({ListProduct:data['data']})
         }
     },
+    SearchKeyword:"",
+    SetSearchKeyword: async(keyword)=>{
+        set({SearchKeyword:keyword})
+    }
+
 
 
 

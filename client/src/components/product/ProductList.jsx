@@ -21,21 +21,9 @@ const ProductList = () => {
               <option value="">Choose Category</option>
             </select>
             <label className="form-label mt-3">Maximum Price ${}</label>
-            <input
-              min={0}
-              max={1000000}
-              step={1000}
-              type="range"
-              className="form-range"
-            />
+              <input min={0} max={1000000} step={1000} type="range" className="form-range"/>
             <label className="form-label mt-3">Minimum Price ${}</label>
-            <input
-              min={0}
-              max={1000000}
-              step={1000}
-              type="range"
-              className="form-range"
-            />
+            <input min={0} max={1000000} step={1000} type="range" className="form-range"/>
           </div>
         </div>
         <div className="col-md-9 p-2">
