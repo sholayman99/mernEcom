@@ -1,6 +1,6 @@
 const { BrandListService , CategoryListService ,SliderListService , DetailsService ,
     ListByKeywordService, ListByBrandService , ListByCategoryService , ListBySimilarService ,
-    ListByRemarkService , ReviewListService,CreateReviewListService } = require("../services/ProductServices");
+    ListByRemarkService , ReviewListService,CreateReviewListService,ProductListByFilterService } = require("../services/ProductServices");
 
 //product band list
 exports.ProductBrandList=async(req,res) =>{
@@ -66,6 +66,12 @@ exports.ProductReviewList=async(req,res) =>{
     let result = await ReviewListService(req);
     return res.status(200).json({result:result});
 }
+
+exports.ProductListByFilter=async(req,res) =>{
+    let result = await ProductListByFilterService(req);
+    return res.status(200).json({result:result});
+}
+
 
 exports.CreateReviewList=async(req,res) =>{
     let result = await CreateReviewListService(req);

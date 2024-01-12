@@ -20,6 +20,8 @@ router.get("/ProductListBySimilar/:CategoryID" , ProductController.ProductListBy
 router.get("/ProductListByKeyword/:Keyword" , ProductController.ProductListByKeyword);
 router.get("/ProductDetails/:ProductID" , ProductController.ProductDetails);
 
+router.post("/ProductListByFilter" , ProductController.ProductListByFilter);
+
 //Api end-point for Review
 
 router.get("/ProductReviewList/:ProductID" , ProductController.ProductReviewList);
