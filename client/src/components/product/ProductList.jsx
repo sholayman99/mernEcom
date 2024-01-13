@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ProductStore from "../../store/ProductStore.js";
 import ProductSkeleton from "../../skeleton/Product-Skeleton.jsx";
 import { Link } from "react-router-dom";
@@ -6,6 +6,14 @@ import StarRatings from "react-star-ratings/build/star-ratings.js";
 
 const ProductList = () => {
   const { ListProduct,BrandList,BrandListRequest,CategoryList,CategoryListRequest } = ProductStore();
+  const [filter,setFilter] = useState({brandID:"",categoryID:"",priceMin:"",priceMax:""})
+
+  const inputOnChange=async(key,value)=>{
+    setFilter((data)=>({
+      ...data,
+      [key]:value
+    }))
+  }
 
   useEffect(() => {
     (async()=>{
@@ -20,7 +28,7 @@ const ProductList = () => {
         <div className="col-md-3 p-2">
           <div className="card vh-100 p-3 shadow-sm">
             <label className="form-label mt-3">Brands</label>
-            <select className="form-control form-select">
+            <select value={filter.brandID} onChange={async(e)=>await inputOnChange("brandID",e.target.value)} className="form-control form-select">
               <option value="">Choose Brand</option>
               {
                 CategoryList!==null?(CategoryList.map((item,i)=>{
@@ -29,7 +37,7 @@ const ProductList = () => {
               }
             </select>
             <label className="form-label mt-3">Categories</label>
-            <select className="form-control form-select">
+            <select value={filter.categoryID} onChange={async(e)=>await inputOnChange("categoryID",e.target.value)} className="form-control form-select">
               <option value="">Choose Category</option>
               {
                 BrandList!==null?(BrandList.map((item,i)=>{
@@ -37,10 +45,10 @@ const ProductList = () => {
                 })):<option></option>
               }
             </select>
-            <label className="form-label mt-3">Maximum Price ${}</label>
-              <input min={0} max={1000000} step={1000} type="range" className="form-range"/>
-            <label className="form-label mt-3">Minimum Price ${}</label>
-            <input min={0} max={1000000} step={1000} type="range" className="form-range"/>
+            <label className="form-label mt-3">Maximum Price ${filter.priceMin}</label>
+              <input value={filter.priceMin} onChange={async(e)=>await inputOnChange("priceMin",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
+            <label className="form-label mt-3">Minimum Price ${filter.priceMax}</label>
+            <input value={filter.priceMax} onChange={async(e)=>await inputOnChange("priceMax",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
           </div>
         </div>
         <div className="col-md-9 p-2">
