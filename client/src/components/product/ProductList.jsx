@@ -1,11 +1,18 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ProductStore from "../../store/ProductStore.js";
 import ProductSkeleton from "../../skeleton/Product-Skeleton.jsx";
 import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings/build/star-ratings.js";
 
 const ProductList = () => {
-  const { ListProduct } = ProductStore();
+  const { ListProduct,BrandList,BrandListRequest,CategoryList,CategoryListRequest } = ProductStore();
+
+  useEffect(() => {
+    (async()=>{
+      BrandList===null?await BrandListRequest():null
+      CategoryList===null?await CategoryListRequest():null
+    })()
+  }, []);
 
   return (
     <div className="container mt-2">
@@ -15,10 +22,20 @@ const ProductList = () => {
             <label className="form-label mt-3">Brands</label>
             <select className="form-control form-select">
               <option value="">Choose Brand</option>
+              {
+                CategoryList!==null?(CategoryList.map((item,i)=>{
+                  return( <option value={item['_id']}>{item['categoryName']}</option>)
+                })):<option></option>
+              }
             </select>
             <label className="form-label mt-3">Categories</label>
             <select className="form-control form-select">
               <option value="">Choose Category</option>
+              {
+                BrandList!==null?(BrandList.map((item,i)=>{
+                  return( <option value={item['_id']}>{item['brandName']}</option>)
+                })):<option></option>
+              }
             </select>
             <label className="form-label mt-3">Maximum Price ${}</label>
               <input min={0} max={1000000} step={1000} type="range" className="form-range"/>
