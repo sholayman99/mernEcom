@@ -77,7 +77,27 @@ const ProductStore = create((set)=>({
     SearchKeyword:"",
     SetSearchKeyword: async(keyword)=>{
         set({SearchKeyword:keyword})
-    }
+    },
+
+    Details:null ,
+    DetailsRequest : async(id)=>{
+        set({ Details:null})
+        let res = await axios.get(`/api/v1/ProductDetails/${id}`);
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({Details:data['data']})
+        }
+    },
+
+    ReviewList:null ,
+    ReviewListRequest : async(id)=>{
+        set({ ReviewList:null})
+        let res = await axios.get(`/api/v1/ProductReviewList/${id}`);
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({ReviewList:data['data']})
+        }
+    },
 
 
 

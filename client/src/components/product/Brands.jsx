@@ -7,8 +7,6 @@ import {Link} from "react-router-dom";
 const Brands = () => {
     const {BrandList} = ProductStore()
 
-    console.log(BrandList)
-
     if(BrandList === null){
         return <BrandSkeleton />
     }

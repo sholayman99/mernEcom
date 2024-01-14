@@ -156,6 +156,7 @@ const ListBySimilarService = async(req) =>{
 
 //product details service
 const DetailsService = async(req) =>{
+
    try {
     let ProductID = new ObjectId(req.params.ProductID) ;
     let matchStage = {$match:{ _id:ProductID }};

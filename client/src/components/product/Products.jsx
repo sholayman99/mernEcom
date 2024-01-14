@@ -7,11 +7,11 @@ import StarRatings from "react-star-ratings/build/star-ratings.js";
 const Products = () => {
   const { ListByRemark, ListByRemarkRequest } = ProductStore();
 
-  console.log(ListByRemark);
 
   if (ListByRemark === null) {
     return <ProductSkeleton />;
-  } else {
+  }
+  else {
     return (
       <>
         <div className="section">
