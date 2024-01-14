@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import ProductStore from "../../store/ProductStore.js";
 import DetailSkeleton from "../../skeleton/Detail-Skeleton.jsx";
 import ProductImages from "./ProductImages.jsx";
+import parse from "html-react-parser"
 
 const Details = () => {
     const {Details,ReviewList} =ProductStore()
@@ -91,7 +92,11 @@ const Details = () => {
                         </ul>
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="Speci-tab-pane" role="tabpanel"
-                                 aria-labelledby="Speci-tab" tabIndex="0"></div>
+                                 aria-labelledby="Speci-tab" tabIndex="0">
+                                {
+                                    parse(Details[0]['details']['des'])
+                                }
+                            </div>
                             <div className="tab-pane fade" id="Review-tab-pane" role="tabpanel" aria-labelledby="Review-tab"
                                  tabIndex="0">
                                 <ul className="list-group list-group-flush"></ul>
