@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings/build/star-ratings.js";
 
 const ProductList = () => {
-  const { ListProduct,BrandList,BrandListRequest,CategoryList,CategoryListRequest } = ProductStore();
+  const { ListProduct,BrandList,BrandListRequest,CategoryList,CategoryListRequest,ListByFilterRequest } = ProductStore();
   const [filter,setFilter] = useState({brandID:"",categoryID:"",priceMin:"",priceMax:""})
 
   const inputOnChange=async(key,value)=>{
@@ -19,36 +19,40 @@ const ProductList = () => {
     (async()=>{
       BrandList===null?await BrandListRequest():null
       CategoryList===null?await CategoryListRequest():null
+
+      let isEveryFilterPropertyEmpty=Object.values(filter).every(value => value==="")
+      !isEveryFilterPropertyEmpty?await ListByFilterRequest(filter):null
+
     })()
-  }, []);
+  }, [filter]);
 
   return (
     <div className="container mt-2">
       <div className="row">
         <div className="col-md-3 p-2">
           <div className="card vh-100 p-3 shadow-sm">
-            <label className="form-label mt-3">Brands</label>
-            <select value={filter.brandID} onChange={async(e)=>await inputOnChange("brandID",e.target.value)} className="form-control form-select">
-              <option value="">Choose Brand</option>
+            <label className="form-label mt-3">Categories</label>
+            <select value={filter.categoryID} onChange={async(e)=>await inputOnChange("categoryID",e.target.value)} className="form-control form-select">
+              <option value="">Choose Category</option>
               {
                 CategoryList!==null?(CategoryList.map((item,i)=>{
                   return( <option value={item['_id']}>{item['categoryName']}</option>)
                 })):<option></option>
               }
             </select>
-            <label className="form-label mt-3">Categories</label>
-            <select value={filter.categoryID} onChange={async(e)=>await inputOnChange("categoryID",e.target.value)} className="form-control form-select">
-              <option value="">Choose Category</option>
+            <label className="form-label mt-3">Brands</label>
+            <select value={filter.brandID} onChange={async(e)=>await inputOnChange("brandID",e.target.value)} className="form-control form-select">
+              <option value="">Choose Brand</option>
               {
                 BrandList!==null?(BrandList.map((item,i)=>{
                   return( <option value={item['_id']}>{item['brandName']}</option>)
                 })):<option></option>
               }
             </select>
-            <label className="form-label mt-3">Maximum Price ${filter.priceMin}</label>
-              <input value={filter.priceMin} onChange={async(e)=>await inputOnChange("priceMin",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
-            <label className="form-label mt-3">Minimum Price ${filter.priceMax}</label>
-            <input value={filter.priceMax} onChange={async(e)=>await inputOnChange("priceMax",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
+            <label className="form-label mt-3">Maximum Price ${filter.priceMax}</label>
+              <input value={filter.priceMax} onChange={async(e)=>await inputOnChange("priceMax",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
+            <label className="form-label mt-3">Minimum Price ${filter.priceMin}</label>
+            <input value={filter.priceMin} onChange={async(e)=>await inputOnChange("priceMin",e.target.value)} min={0} max={10000} step={100} type="range" className="form-range"/>
           </div>
         </div>
         <div className="col-md-9 p-2">

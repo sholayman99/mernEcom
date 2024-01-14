@@ -64,6 +64,16 @@ const ProductStore = create((set)=>({
             set({ListProduct:data['data']})
         }
     },
+
+    ListByFilterRequest : async(postBody)=>{
+        set({ ListProduct:null})
+        let res = await axios.post(`/api/v1/ProductListByFilter`,postBody);
+        let data = await res.data['result'] ;
+        if(data['status']==="success"){
+            set({ListProduct:data['data']})
+        }
+    },
+
     SearchKeyword:"",
     SetSearchKeyword: async(keyword)=>{
         set({SearchKeyword:keyword})
