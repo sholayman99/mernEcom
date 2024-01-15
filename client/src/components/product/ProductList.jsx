@@ -98,7 +98,7 @@ const ProductList = () => {
                               </p>
                               {price}
                               <StarRatings
-                                rating={4}
+                                rating={parseFloat(item['star'])}
                                 starRatedColor="red"
                                 starDimension="15px"
                                 starSpacing="2px"

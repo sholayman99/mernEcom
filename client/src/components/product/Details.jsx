@@ -3,9 +3,10 @@ import ProductStore from "../../store/ProductStore.js";
 import DetailSkeleton from "../../skeleton/Detail-Skeleton.jsx";
 import ProductImages from "./ProductImages.jsx";
 import parse from "html-react-parser"
+import Reviews from "./Reviews.jsx";
 
 const Details = () => {
-    const {Details,ReviewList} =ProductStore()
+    const {Details} =ProductStore()
     const [quantity,setQuantity] = useState(1)
 
     const incrementQuantity=()=>{
@@ -99,7 +100,7 @@ const Details = () => {
                             </div>
                             <div className="tab-pane fade" id="Review-tab-pane" role="tabpanel" aria-labelledby="Review-tab"
                                  tabIndex="0">
-                                <ul className="list-group list-group-flush"></ul>
+                                <Reviews />
                             </div>
                         </div>
                     </div>
