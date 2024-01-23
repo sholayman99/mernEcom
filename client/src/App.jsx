@@ -12,6 +12,8 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
 import TermsPage from "./pages/TermsPage.jsx";
 import ComplainPage from "./pages/ComplainPage.jsx";
 import HowToBuy from "./pages/HowToBuy.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import OtpPage from "./pages/OtpPage.jsx";
 
 const App = () => {
     return (
@@ -30,6 +32,8 @@ const App = () => {
                     <Route path={"/complain"} element={ <ComplainPage /> } />
                     <Route path={"/how-to-buy"} element={ <HowToBuy /> } />
                     <Route path={"/about"} element={ <AboutPage /> } />
+                    <Route path={"/login"} element={ <LoginPage /> } />
+                    <Route path={"/otp"} element={ <OtpPage /> } />
                 </Routes>
             </BrowserRouter>
         </div>
