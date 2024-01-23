@@ -5,16 +5,24 @@ import {getEmail, setEmail} from "../utility/utility.js";
 
 const UserStore = create((set)=>({
    LoginFormValue:{email:""},
-
-   LoginFormRequest:(name,value)=>{
+   LoginFormOnChange:(name,value)=>{
        set((state)=>({
            LoginFormValue:{
                ...state.LoginFormValue,
                [name]:value
            }
        }))
-   }
-    ,
+   },
+
+    OtpFormValue:{otp:""},
+    OtpFormOnChange:(name,value)=>{
+        set((state)=>({
+            OtpFormValue:{
+                ...state.OtpFormValue,
+                [name]:value
+            }
+        }))
+    },
 
 
     isFormSubmit : false,

@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
 
 const LoginForm = () => {
-  let {LoginFormValue,LoginFormRequest,UserOtpRequest} = UserStore();
+  let {LoginFormValue,LoginFormOnChange,UserOtpRequest} = UserStore();
  const navigate = useNavigate();
 const onFormSubmit = async ()=>{
         if(!ValidationHelper.IsEmail(LoginFormValue.email)){
@@ -27,7 +27,7 @@ const onFormSubmit = async ()=>{
               A verification code will be sent to the email address you provide
             </p>
             <input placeholder="Email Address" value={LoginFormValue.email} type="email" className="form-control"
-                 onChange={(e)=>LoginFormRequest("email",e.target.value)}  />
+                 onChange={(e)=>LoginFormOnChange("email",e.target.value)}  />
             <SubmitButton onClick={onFormSubmit}  className="btn mt-3 btn-success" text="Next" />
           </div>
         </div>
