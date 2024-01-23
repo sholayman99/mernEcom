@@ -1,4 +1,5 @@
 const FeatureModel = require("../models/FeaturesModel");
+const LegalModel = require("../models/LegalModel");
 
 
 const FeatureListService = async()=>{
@@ -10,4 +11,14 @@ const FeatureListService = async()=>{
     }
 }
 
-module.exports = FeatureListService;
+const LegalListService = async(req)=>{
+    try {
+        let type = req.params.type
+        let data = await LegalModel.find({type:type});
+        return {status:"success" , data:data};
+    }catch (e) {
+        return {status:"fail" , data:e.message};
+    }
+}
+
+module.exports = {FeatureListService,LegalListService};

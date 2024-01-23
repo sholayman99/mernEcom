@@ -19,8 +19,12 @@ router.get("/ProductListByRemark/:Remark" , ProductController.ProductListByRemar
 router.get("/ProductListBySimilar/:CategoryID" , ProductController.ProductListBySimilar);
 router.get("/ProductListByKeyword/:Keyword" , ProductController.ProductListByKeyword);
 router.get("/ProductDetails/:ProductID" , ProductController.ProductDetails);
-
 router.post("/ProductListByFilter" , ProductController.ProductListByFilter);
+
+
+//Api end-point for Feature
+router.get("/FeatureList" , FeatureController.FeatureList );
+router.get("/LegalList/:type" , FeatureController.LegalList)
 
 //Api end-point for Review
 
@@ -57,7 +61,5 @@ router.post("/PaymentIPN/:trxID", InvoiceController.PaymentIPN );
 router.get("/InvoiceList",AuthVerifyMiddleware , InvoiceController.InvoiceList );
 router.get("/InvoiceProductList/:invoiceID",AuthVerifyMiddleware , InvoiceController.InvoiceProductList );
 
-//Api end-point for Feature
-router.get("/FeatureList" , FeatureController.FeatureList );
 
 module.exports = router ;
