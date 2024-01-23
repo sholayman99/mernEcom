@@ -5,6 +5,13 @@ import ProductByBrand from "./pages/ProductByBrand.jsx";
 import ProductByCategory from "./pages/ProductByCategory.jsx";
 import ProductByKeyword from "./pages/ProductByKeyword.jsx";
 import ProductDetails from "./pages/ProductDetails.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
+import RefundPage from "./pages/RefundPage.jsx";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage.jsx";
+import TermsPage from "./pages/TermsPage.jsx";
+import ComplainPage from "./pages/ComplainPage.jsx";
+import HowToBuy from "./pages/HowToBuy.jsx";
 
 const App = () => {
     return (
@@ -16,6 +23,13 @@ const App = () => {
                     <Route path={"/by-category/:id"} element={ <ProductByCategory /> } />
                     <Route path={"/by-keyword/:keyword"} element={ <ProductByKeyword /> } />
                     <Route path={"/details/:id"} element={ <ProductDetails /> } />
+                    <Route path={"/contact"} element={ <ContactPage /> } />
+                    <Route path={"/refund"} element={ <RefundPage /> } />
+                    <Route path={"/privacy"} element={ <PrivacyPolicyPage /> } />
+                    <Route path={"/terms"} element={ <TermsPage /> } />
+                    <Route path={"/complain"} element={ <ComplainPage /> } />
+                    <Route path={"/how-to-buy"} element={ <HowToBuy /> } />
+                    <Route path={"/about"} element={ <AboutPage /> } />
                 </Routes>
             </BrowserRouter>
         </div>
