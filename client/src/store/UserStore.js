@@ -1,9 +1,15 @@
 import {create}   from "zustand";
 import axios from "axios";
 import {getEmail, setEmail} from "../utility/utility.js";
+import Cookies from "js-cookie";
 
 
 const UserStore = create((set)=>({
+
+    isLogin:()=>{
+       return !!Cookies.get("token");
+    },
+
    LoginFormValue:{email:""},
    LoginFormOnChange:(name,value)=>{
        set((state)=>({
@@ -24,6 +30,10 @@ const UserStore = create((set)=>({
         }))
     },
 
+    LogoutRequest:async ()=>{
+       let res = await axios.get(`/api/v1/UserLogout`);
+       return res.data['status'] === "success";
+    },
 
     isFormSubmit : false,
     UserOtpRequest : async (email)=>{
