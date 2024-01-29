@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import UserStore from "../../store/UserStore.js";
 import ProfileSkeleton from "../../skeleton/Profile-Skeleton.jsx";
+import toast from "react-hot-toast";
 
 const ProfileForm = () => {
     const {ProfileForm,ProfileFormOnChange,ProfileDetails,ProfileDetailsRequest,ProfileSaveRequest} = UserStore();
@@ -12,6 +13,14 @@ const ProfileForm = () => {
 
         })()
     }, []);
+
+    const Save =async ()=>{
+          let res = await ProfileSaveRequest(ProfileForm);
+          if(res){
+              toast.success("Profile Updated");
+              await ProfileDetailsRequest();
+          }
+    }
 
 
     if(ProfileDetails === null){
@@ -90,7 +99,7 @@ const ProfileForm = () => {
                     </div>
                     <div className="row mt-4">
                         <div className="col-md-3 p-2">
-                            <button className="btn btn-success">Save</button>
+                            <button onClick={Save} className="btn btn-success">Save</button>
                         </div>
                     </div>
                 </div>
