@@ -57,6 +57,7 @@ const UserStore = create((set)=>({
         cus_city: "", cus_country: "", cus_fax: "", cus_name: "", cus_phone: "", cus_postcode: "",
         cus_state: "", ship_add: "", ship_city: "", ship_country: "", ship_name: "", ship_phone: "",
         ship_postcode: "", ship_state: "",},
+
     ProfileFormOnChange:(name,value)=>{
         set((state)=>({
           ProfileForm:{
@@ -69,8 +70,8 @@ const UserStore = create((set)=>({
     ProfileDetails:null,
     ProfileDetailsRequest:async()=>{
         try {
-          let res = await axios.get('api/v1/ReadProfile');
-          let data = await res['result'];
+          let res = await axios.get('/api/v1/ReadProfile');
+          let data = await res.data['result'];
           if(data['status']==='success'){
               set({ProfileForm:data['data'][0]})
               set({ProfileDetails:data['data'][0]})
@@ -79,16 +80,17 @@ const UserStore = create((set)=>({
           }
 
         }catch (e) {
-          unauthorized(e.res.status)
+          unauthorized(e.response.status)
         }
     },
 
     ProfileSaveRequest:async(postBody)=>{
         try {
-            let res = await axios.get('api/v1/UpdateProfile',postBody);
-            return res.data['status'] === 'success';
+            let res = await axios.post('/api/v1/UpdateProfile',postBody);
+            let data = await res.data['result'];
+            return data['status'] === 'success';
         }catch (e) {
-            unauthorized(e.res.status)
+            unauthorized(e.response.status)
         }
     }
 

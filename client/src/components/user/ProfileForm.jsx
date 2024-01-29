@@ -5,9 +5,11 @@ import ProfileSkeleton from "../../skeleton/Profile-Skeleton.jsx";
 const ProfileForm = () => {
     const {ProfileForm,ProfileFormOnChange,ProfileDetails,ProfileDetailsRequest,ProfileSaveRequest} = UserStore();
 
+
     useEffect(() => {
         (async ()=>{
             await ProfileDetailsRequest()
+
         })()
     }, []);
 
@@ -23,35 +25,35 @@ const ProfileForm = () => {
                     <div className="row mb-4">
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Name </label>
-                            <input type="text" className="form-control " />
+                            <input value={ProfileForm.cus_name} onChange={(e)=>{ProfileFormOnChange("cus_name",e.target.value)}} type="text" className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Phone </label>
-                            <input type="text" className="form-control " />
+                            <input value={ProfileForm.cus_phone} onChange={(e)=>{ProfileFormOnChange("cus_phone",e.target.value)}} type="text" className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Fax </label>
-                            <input type="text" className="form-control " />
+                            <input value={ProfileForm.cus_fax} onChange={(e)=>{ProfileFormOnChange("cus_fax",e.target.value)}} type="text" className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Country </label>
-                            <input type="text" className="form-control " />
+                            <input value={ProfileForm.cus_country} onChange={(e)=>{ProfileFormOnChange("cus_country",e.target.value)}} type="text" className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer City </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.cus_city} onChange={(e)=>{ProfileFormOnChange("cus_city",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer State </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.cus_state} onChange={(e)=>{ProfileFormOnChange("cus_state",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Post Code </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.cus_postcode} onChange={(e)=>{ProfileFormOnChange("cus_postcode",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Customer Address</label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.cus_add} onChange={(e)=>{ProfileFormOnChange("cus_add",e.target.value)}} className="form-control " />
                         </div>
                     </div>
                     <h6>Shipping Details</h6>
@@ -59,31 +61,31 @@ const ProfileForm = () => {
                     <div className="row">
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping Name </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_name} onChange={(e)=>{ProfileFormOnChange("ship_name",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping Phone </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_phone} onChange={(e)=>{ProfileFormOnChange("ship_phone",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping Country </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_country} onChange={(e)=>{ProfileFormOnChange("ship_country",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping City </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_city} onChange={(e)=>{ProfileFormOnChange("ship_city",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping State </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_state} onChange={(e)=>{ProfileFormOnChange("ship_state",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping Post Code </label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_postcode} onChange={(e)=>{ProfileFormOnChange("ship_postcode",e.target.value)}} className="form-control " />
                         </div>
                         <div className="col-md-3 p-2">
                             <label className="form-label">Shipping Address</label>
-                            <input type="text" className="form-control " />
+                            <input type="text" value={ProfileForm.ship_add} onChange={(e)=>{ProfileFormOnChange("ship_add",e.target.value)}} className="form-control " />
                         </div>
                     </div>
                     <div className="row mt-4">
