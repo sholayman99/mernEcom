@@ -84,14 +84,14 @@ const AppNavbar = () => {
                   isLogin()?(
                       <>
                           <SubmitButton onClick={onLogout}  className="btn ms-3 btn-success" text="Logout" />
-                          <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
+
                       </>
                   )
                   :(
                       <Link type="button" className="btn ms-3 btn-success d-flex" to="/login">Login</Link>
                   )
               }
-
+              <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
            </div>
           </div>
         </nav>
