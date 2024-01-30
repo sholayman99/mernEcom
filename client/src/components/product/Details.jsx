@@ -4,6 +4,7 @@ import DetailSkeleton from "../../skeleton/Detail-Skeleton.jsx";
 import ProductImages from "./ProductImages.jsx";
 import parse from "html-react-parser"
 import Reviews from "./Reviews.jsx";
+import CartSubmitButton from "../cart/CartSubmitButton.jsx";
 
 const Details = () => {
     const {Details} =ProductStore()
@@ -19,6 +20,7 @@ const Details = () => {
       }
     }
 
+
     if(Details===null){
         return <DetailSkeleton/>
     }else{
@@ -30,7 +32,7 @@ const Details = () => {
                             <ProductImages />
                         </div>
                         <div className="col-md-5 p-3">
-                            <h4>title</h4>
+                            <h4>{Details[0]['title']}</h4>
                             <p className="text-muted bodySmal my-1">Category: {Details[0]['category']['categoryName']}</p>
                             <p className="text-muted bodySmal my-1">Brand:{Details[0]['brand']['brandName']}</p>
                             <p className="bodySmal mb-2 mt-1">{Details[0]['shortDes']}</p>
@@ -70,7 +72,7 @@ const Details = () => {
                                     </div>
                                 </div>
                                 <div className="col-4 p-2">
-                                    <button className="btn w-100 btn-success">Add to Cart</button>
+                                    <CartSubmitButton text={"Add To Cart"} className="btn w-100 btn-success"  />
                                 </div>
                                 <div className="col-4 p-2">
                                     <button className="btn w-100 btn-success">Add to Wish</button>

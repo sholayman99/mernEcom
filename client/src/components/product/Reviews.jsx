@@ -4,7 +4,7 @@ import StarRatings from "react-star-ratings/build/star-ratings.js";
 
 const Reviews = () => {
     const {ReviewList} =ProductStore()
-    console.log(ReviewList)
+
     return (
         <ul className="list-group my-2 list-group-flush">
             {
