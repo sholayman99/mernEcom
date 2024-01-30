@@ -3,10 +3,10 @@ import axios from "axios";
 import {unauthorized} from "../utility/utility.js";
 
 
-const FeatureStore = create((set)=>({
+const CartStore = create((set)=>({
     isCartSubmit:false,
 
-    CartForm:{productID:"",color:"",qty:"1",size:""},
+    CartForm:{productID:"",color:"",qty:1,size:""},
 
     CartFormOnChange:(name,value)=>{
         set((state)=>({
@@ -17,15 +17,17 @@ const FeatureStore = create((set)=>({
         }))
     },
 
-    CartSaveRequest:async(postBody,productID)=>{
+    CartSaveRequest:async(postBody,productID,quantity)=>{
         try {
             set({isCartSubmit:true});
             postBody.productID = productID;
+            postBody.qty = quantity
             let res = await axios.post('/api/v1/SaveCartList',postBody);
-            let data = await res.data['result'];
+            let data = await res['data'];
+            console.log(data)
             return data['status'] === 'success';
         }catch (e) {
-          unauthorized(e.response.status)
+            unauthorized(e.response.status)
         }finally {
             set({isCartSubmit:false});
         }
@@ -37,7 +39,7 @@ const FeatureStore = create((set)=>({
     CartListRequest:async()=>{
         try {
             let res = await axios.get('/api/v1/ReadCartList');
-            let data = await res.data['result'];
+            let data = await res['data'];
             if(data['status']==='success'){
                 set({CartList:data['data']});
                 set({CartCount:data['data'].length})
@@ -49,4 +51,4 @@ const FeatureStore = create((set)=>({
 
 }))
 
-export default FeatureStore;
+export default CartStore;

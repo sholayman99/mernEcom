@@ -5,10 +5,16 @@ import ProductImages from "./ProductImages.jsx";
 import parse from "html-react-parser"
 import Reviews from "./Reviews.jsx";
 import CartSubmitButton from "../cart/CartSubmitButton.jsx";
+import CartStore from "../../store/CartStore.js";
+import toast from "react-hot-toast";
+import WishStore from "../../store/WishStore.js";
+import WishSubmitButton from "../wish/WishSubmitButton.jsx";
 
 const Details = () => {
-    const {Details} =ProductStore()
-    const [quantity,setQuantity] = useState(1)
+    const {Details} =ProductStore();
+    const {CartForm,CartFormOnChange,CartSaveRequest,} = CartStore()
+    const {WishSaveRequest}= WishStore()
+    const [quantity,setQuantity] = useState(1);
 
     const incrementQuantity=()=>{
         setQuantity(quantity=>quantity+1)
@@ -18,6 +24,20 @@ const Details = () => {
       if(quantity>1){
           setQuantity(quantity=>quantity-1)
       }
+    }
+
+    const AddToCart = async (id)=>{
+        let res = await CartSaveRequest(CartForm,id,quantity);
+        if(res){
+            toast.success("Cart Item Saved")
+        }
+    }
+
+    const AddWish = async (id)=>{
+        let res = await WishSaveRequest(id);
+        if(res){
+            toast.success("Wish Item Saved")
+        }
     }
 
 
@@ -43,7 +63,8 @@ const Details = () => {
                             <div className="row">
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Size</label>
-                                    <select className="form-control my-2 form-select">
+                                    <select className="form-control my-2 form-select" value={CartForm.size}
+                                        onChange={(e)=>{CartFormOnChange("size",e.target.value)}} >
                                         <option value="">Size</option>
                                         { Details[0]['details']['size'].split(",").map((item,i)=>{
                                             return(
@@ -54,7 +75,8 @@ const Details = () => {
                                 </div>
                                 <div className="col-4 p-2">
                                     <label className="bodySmal">Color</label>
-                                    <select className="form-control my-2 form-select">
+                                    <select onChange={(e)=>{CartFormOnChange("color",e.target.value)}}
+                                            className="form-control my-2 form-select" value={CartForm.color}>
                                         <option value="">Color</option>
                                         { Details[0]['details']['color'].split(",").map((item,i)=>{
                                             return(
@@ -72,10 +94,10 @@ const Details = () => {
                                     </div>
                                 </div>
                                 <div className="col-4 p-2">
-                                    <CartSubmitButton text={"Add To Cart"} className="btn w-100 btn-success"  />
+                                    <CartSubmitButton onClick={async()=> await AddToCart(Details[0]['_id'])} text={"Add To Cart"} className="btn w-100 btn-success"  />
                                 </div>
                                 <div className="col-4 p-2">
-                                    <button className="btn w-100 btn-success">Add to Wish</button>
+                                    <WishSubmitButton onClick={async()=> await AddWish(Details[0]['_id'])} text={"Add To Wish"} className="btn w-100 btn-success" />
                                 </div>
                             </div>
                         </div>

@@ -1,20 +1,37 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import logo from "../../assets/images/plainb-logo.svg"
 import ProductStore from "../../store/ProductStore.js";
 import UserStore from "../../store/UserStore.js";
 import SubmitButton from "./SubmitButton.jsx";
+import CartStore from "../../store/CartStore.js";
+import WishStore from "../../store/WishStore.js";
 
 const AppNavbar = () => {
-    const {SetSearchKeyword,SearchKeyword} = ProductStore()
+    const {SetSearchKeyword,SearchKeyword} = ProductStore();
+    const {CartListRequest,CartCount} = CartStore();
+    const {WishCount,WIshListRequest} = WishStore();
     const {isLogin,LogoutRequest} = UserStore();
     const navigate = useNavigate();
+
+
+
     const onLogout =async ()=>{
         await LogoutRequest();
         sessionStorage.clear();
         localStorage.clear();
         navigate("/");
     }
+
+
+    useEffect(() => {
+        (async ()=>{
+          if(isLogin()){
+              await CartListRequest();
+              await WIshListRequest();
+          }
+        })()
+    }, []);
 
     return (
         <>
@@ -74,15 +91,24 @@ const AppNavbar = () => {
                </svg>
                </Link>
           </div>
-               <Link to="/cart" type="button" className="btn ms-2 btn-light position-relative">
-                  <i className="bi text-dark bi-bag"></i>
-               </Link>
-               <Link to="/wish" type="button" className="btn ms-2 btn-light d-flex">
-                 <i className="bi text-dark bi-heart"></i>
-               </Link>
+
               {
                   isLogin()?(
                       <>
+                          <Link to="/cart" type="button" className="btn ms-2 btn-light position-relative">
+                              <i className="bi text-dark bi-bag"></i>
+                              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success">
+                                            {CartCount}
+                                  <span className="visually-hidden">unread messages</span>
+                              </span>
+                          </Link>
+                          <Link to="/wish" type="button" className="btn ms-3 btn-light position-relative">
+                              <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                                            {WishCount}
+                                  <span className="visually-hidden">unread messages</span>
+                              </span>
+                              <i className="bi text-dark bi-heart"></i>
+                          </Link>
                           <SubmitButton onClick={onLogout}  className="btn ms-3 btn-success" text="Logout" />
                           <Link type="button" className="btn ms-3 btn-success d-flex" to="/profile">Profile</Link>
                       </>
